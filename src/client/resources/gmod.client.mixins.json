@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "me.glxphs.gmod.mixin.client",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ClientPlayNetworkHandlerMixin",
+    "HandledScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "ClientPlayerEntityMixin"
+  ]
+}

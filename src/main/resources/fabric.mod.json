@@ -1,0 +1,49 @@
+{
+	"schemaVersion": 1,
+	"id": "gmod",
+	"version": "${version}",
+	"name": "GMod",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"uwuGlxphs"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/gmod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "me.glxphs.gmod.GMod",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "me.glxphs.gmod.GModClient",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"gmod.mixins.json",
+		{
+			"config": "gmod.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.19.4",
+		"java": ">=17",
+		"fabric-api": "*",
+		"fabric-language-kotlin": ">=1.9.0",
+		"wynntils": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
