@@ -1,4 +1,8 @@
 # GMod
+GMod (G = Glxphs)
 
-### warning
-i took the classes in me.glxphs.gmod.utils from wynntils artemis 
+### Version
+- MC 1.19.4
+
+### Dependencies
+- Wynntils Artemis (1.19.4)
