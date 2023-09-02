@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.Text
 
-object HudRenderer {
+object OverlayRenderer {
     fun registerEvents() {
         HudRenderCallback.EVENT.register { matrixStack, _ ->
             val mc = McUtils.mc

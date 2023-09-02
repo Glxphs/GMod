@@ -6,7 +6,7 @@ import me.glxphs.gmod.config.GeneralConfig
 import me.glxphs.gmod.config.KeyHandler
 import me.glxphs.gmod.features.FeatureManager
 import me.glxphs.gmod.features.MythicWeightsLoader
-import me.glxphs.gmod.features.impl.hud.HudRenderer
+import me.glxphs.gmod.features.impl.hud.OverlayRenderer
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.minecraft.client.MinecraftClient
@@ -22,7 +22,7 @@ object GModClient : ClientModInitializer {
         ConfigManager.registerConfig(GeneralConfig)
 
         KeyHandler.registerKeybindings()
-        HudRenderer.registerEvents()
+        OverlayRenderer.registerEvents()
 
         // Register client commands
         ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->

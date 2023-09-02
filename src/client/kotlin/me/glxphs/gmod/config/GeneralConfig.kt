@@ -9,6 +9,9 @@ import me.glxphs.gmod.config.annotations.ConfigCategory
     order = 0
 )
 object GeneralConfig {
-    @ConfigKey("Outlined Text")
+    @ConfigKey(
+        "Overlays: Outlined Text",
+        description = "If enabled, overlay text will have a black outline.",
+    )
     val outlinedText = ConfigValue(false)
 }

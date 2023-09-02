@@ -14,7 +14,7 @@ import net.minecraft.util.Formatting
     description = "Counts how many of your lootrun challenges are from red beacons.",
 )
 object LootrunOverlay : OverlayFeature("Lootrun Overlay") {
-    @ConfigKey("Scale", hidden = true)
+    @ConfigKey("Scale")
     override var scale: ConfigValue<Float> = ConfigValue(1.0f)
 
     @ConfigKey("X Position", hidden = true)

@@ -24,7 +24,7 @@ abstract class OverlayFeature(name: String) : Feature(name) {
     }
 
     private fun getUnscaledBoxHeight(): Float {
-        return getPreviewTextList().size * 10f - 1f
+        return getPreviewTextList().size * 10f
     }
 
     fun getScaledBoxHeight(): Float {

@@ -1,5 +1,6 @@
 package me.glxphs.gmod.features.impl
 
+import com.wynntils.utils.mc.LoreUtils
 import me.glxphs.gmod.GModClient
 import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.config.annotations.ConfigKey
@@ -10,7 +11,6 @@ import me.glxphs.gmod.config.KeyHandler.cast4thSpell
 import me.glxphs.gmod.config.annotations.ConfigCategory
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.impl.hud.SpellClicksOverlay
-import me.glxphs.gmod.utils.LoreUtils
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.network.ClientPlayerEntity

@@ -4,13 +4,14 @@ import com.wynntils.core.components.Models
 import com.wynntils.models.gear.type.GearTier
 import com.wynntils.models.items.items.game.GearItem
 import com.wynntils.models.stats.StatCalculator
+import com.wynntils.utils.wynn.ColorScaleUtils
 import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.config.annotations.ConfigKey
 import me.glxphs.gmod.config.annotations.ConfigCategory
 import me.glxphs.gmod.events.SlotRenderCallback
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.MythicWeightsLoader
-import me.glxphs.gmod.utils.ColorScaleUtils
+import me.glxphs.gmod.utils.ColorUtils
 import me.glxphs.gmod.utils.McUtils
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback
 import net.minecraft.client.gui.DrawableHelper
@@ -67,7 +68,7 @@ object MythicWeightTooltipFeature : Feature("Mythic Weighed Overall Tooltip") {
 
             val weightedOverall = getWeightedOverall(itemStack) ?: return@register
 
-            val overallString = ColorScaleUtils.getPercentageTextComponentNoBrackets(weightedOverall.toFloat(), true, 0)
+            val overallString = ColorUtils.getPercentageTextComponent(weightedOverall.toFloat(), true, 0)
 
             // draw text
             val textRenderer = McUtils.mc.textRenderer

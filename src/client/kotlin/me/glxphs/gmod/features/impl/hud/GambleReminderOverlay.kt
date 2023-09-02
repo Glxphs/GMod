@@ -11,7 +11,7 @@ import net.minecraft.util.Formatting
     description = "A reminder to gamble every day",
 )
 object GambleReminderOverlay : OverlayFeature("Gamble Reminder") {
-    @ConfigKey("Scale", hidden = true)
+    @ConfigKey("Scale")
     override var scale: ConfigValue<Float> = ConfigValue(1.0f)
 
     @ConfigKey("X Position", hidden = true)

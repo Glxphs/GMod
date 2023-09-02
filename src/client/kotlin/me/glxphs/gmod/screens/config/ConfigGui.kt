@@ -87,7 +87,7 @@ class ConfigGui : LightweightGuiDescription() {
         override fun addTooltip(tooltip: TooltipBuilder?) {
             if (category.description == "") return
             val wrapped = WordUtils.wrap(category.description, 30)
-            val lines = wrapped.split("\n")
+            val lines = wrapped.split("\r\n")
             lines.forEach {
                 tooltip?.add(
                     Text.literal(it)

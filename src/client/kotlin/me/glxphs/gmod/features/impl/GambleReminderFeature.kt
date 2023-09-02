@@ -1,6 +1,7 @@
 package me.glxphs.gmod.features.impl
 
 import com.wynntils.core.components.Models
+import com.wynntils.core.text.StyledText
 import com.wynntils.models.gear.type.GearTier
 import com.wynntils.models.items.items.game.GearItem
 import com.wynntils.models.stats.StatCalculator
@@ -11,7 +12,6 @@ import me.glxphs.gmod.events.InventoryCallback
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.MythicWeightsLoader
 import me.glxphs.gmod.utils.McUtils
-import me.glxphs.gmod.utils.StyledText
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
