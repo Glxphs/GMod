@@ -2,9 +2,9 @@ package me.glxphs.gmod.features.impl.hud
 
 import com.wynntils.core.components.Models
 import com.wynntils.models.items.items.game.GearItem
-import me.glxphs.gmod.config.Config
-import me.glxphs.gmod.config.ConfigEntry
-import me.glxphs.gmod.config.RegisterConfig
+import me.glxphs.gmod.config.ConfigValue
+import me.glxphs.gmod.config.annotations.ConfigKey
+import me.glxphs.gmod.config.annotations.RegisterConfig
 import me.glxphs.gmod.events.PlayerSwingHandCallback
 import me.glxphs.gmod.features.impl.SpellMacroFeature
 import me.glxphs.gmod.utils.ClickCounter
@@ -24,17 +24,14 @@ object SpellClicksHudFeature : HudFeature("Spell Clicks HUD") {
     val clicks = mutableListOf<SpellMacroFeature.ClickType>()
     private var clearCountdown = 50
 
-    @ConfigEntry("Enabled")
-    override var enabled = Config(true, hidden = false, order = 0)
+    @ConfigKey("Hud Size")
+    override var hudSize = ConfigValue(3.0f)
 
-    @ConfigEntry("Hud Size")
-    override var hudSize = Config(3.0f)
+    @ConfigKey("X Position", hidden = true)
+    override var x = ConfigValue(100.0f)
 
-    @ConfigEntry("X Position")
-    override var x = Config(100.0f, true)
-
-    @ConfigEntry("Y Position")
-    override var y = Config(100.0f, true)
+    @ConfigKey("Y Position", hidden = true)
+    override var y = ConfigValue(100.0f)
 
     private var lastSelectedSlot = 0
     private var clickCounter = ClickCounter()

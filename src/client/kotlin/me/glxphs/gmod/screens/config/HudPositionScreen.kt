@@ -1,7 +1,5 @@
-package me.glxphs.gmod.screens
+package me.glxphs.gmod.screens.config
 
-import me.glxphs.gmod.config.ConfigGui
-import me.glxphs.gmod.config.ConfigScreen
 import me.glxphs.gmod.features.FeatureManager
 import me.glxphs.gmod.screens.widgets.HudPositionWidget
 import net.minecraft.client.MinecraftClient

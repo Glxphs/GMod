@@ -1,4 +1,4 @@
-package me.glxphs.gmod.config
+package me.glxphs.gmod.config.annotations
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

@@ -1,16 +1,22 @@
 package me.glxphs.gmod.features.impl.hud
 
+import com.mojang.blaze3d.systems.RenderSystem
+import com.wynntils.core.consumers.overlays.RenderState
+import me.glxphs.gmod.config.GeneralConfig
 import me.glxphs.gmod.features.FeatureManager
-import me.glxphs.gmod.screens.HudPositionScreen
+import me.glxphs.gmod.screens.config.HudPositionScreen
 import me.glxphs.gmod.utils.McUtils
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
+import net.minecraft.client.font.FontStorage
 import net.minecraft.client.util.math.MatrixStack
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 
 object HudRenderer {
     fun registerEvents() {
         HudRenderCallback.EVENT.register { matrixStack, _ ->
             val mc = McUtils.mc
-            val screen = mc.currentScreen ?: return@register
+            val screen = mc.currentScreen
             renderHudFeatures(matrixStack, screen is HudPositionScreen)
         }
     }
@@ -29,7 +35,6 @@ object HudRenderer {
         
         val scaleFactor = mc.window.scaleFactor.toFloat()
         val width = mc.window.width / scaleFactor
-        val height = mc.window.height / scaleFactor
         
         val scaledX = hud.x.get() / scaleFactor
         val scaledY = hud.y.get() / scaleFactor
@@ -48,15 +53,38 @@ object HudRenderer {
                 0.0f
             )
             matrixStack.scale(hud.hudSize.get(), hud.hudSize.get(), 1.0f)
-            mc.textRenderer.drawWithShadow(
-                matrixStack,
-                text,
-                0f,
-                0f,
-                0xFFFFFF
-            )
+            if (GeneralConfig.outlinedText.value) {
+                drawWithOutline(
+                    matrixStack,
+                    text,
+                    0f,
+                    0f,
+                    hud.hudSize.get()
+                )
+            } else {
+                mc.textRenderer.drawWithShadow(
+                    matrixStack,
+                    text,
+                    0f,
+                    0f,
+                    0xFFFFFF
+                )
+            }
             matrixStack.pop()
         }
+    }
+
+    private fun drawWithOutline(matrixStack: MatrixStack, text: Text, x: Float, y: Float, scale: Float = 1.0f) {
+        RenderSystem.setShaderColor(0f, 0f, 0f, 1f)
+        for (xOffset in -1..1) {
+            for (yOffset in -1..1) {
+                if (xOffset != 0 || yOffset != 0) {
+                    McUtils.mc.textRenderer.draw(matrixStack, text, x + xOffset.toFloat() / scale, y + yOffset.toFloat() / scale, 0)
+                }
+            }
+        }
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f)
+        McUtils.mc.textRenderer.draw(matrixStack, text, x, y, 0xFFFFFF)
     }
 
     private fun getAlignedX(windowWidth: Float, scaledX: Float, actualWidth: Float, textWidth: Float): Float {

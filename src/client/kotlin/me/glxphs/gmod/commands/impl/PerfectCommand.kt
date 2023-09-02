@@ -30,7 +30,7 @@ object PerfectCommand : Command() {
                         val itemName = getString(ctx, "item")
                         val gearInfo = Models.Gear.getGearInfoFromApiName(itemName) ?: return@executes 1
 
-                        GModClient.ingameLog(itemName)
+                        GModClient.inGameLog(itemName)
 
                         val encoded = toEncodedString(gearInfo)
                         if (encoded == "") return@executes 1

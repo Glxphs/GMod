@@ -3,9 +3,9 @@ package me.glxphs.gmod.features.impl
 import com.wynntils.core.components.Models
 import com.wynntils.models.gear.type.GearTier
 import com.wynntils.models.items.items.game.GearItem
-import me.glxphs.gmod.config.Config
-import me.glxphs.gmod.config.ConfigEntry
-import me.glxphs.gmod.config.RegisterConfig
+import me.glxphs.gmod.config.ConfigValue
+import me.glxphs.gmod.config.annotations.ConfigKey
+import me.glxphs.gmod.config.annotations.RegisterConfig
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.MythicWeightsLoader
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback
@@ -14,9 +14,6 @@ import net.minecraft.util.Formatting
 
 @RegisterConfig(section = "Unid Mythic Price Tooltip")
 object UnidMythicPcTooltipFeature : Feature("Unid Mythic Price Tooltip") {
-    @ConfigEntry(name = "Enabled")
-    var enabled = Config(true)
-
     override fun onInitialize() {
         super.onInitialize()
         ItemTooltipCallback.EVENT.register { stack, context, tooltip ->

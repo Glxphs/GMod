@@ -1,9 +1,10 @@
-package me.glxphs.gmod.config
+package me.glxphs.gmod.screens.config
 
 import com.mojang.blaze3d.systems.RenderSystem
 import io.github.cottonmc.cotton.gui.GuiDescription
 import io.github.cottonmc.cotton.gui.client.BackgroundPainter
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen
+import me.glxphs.gmod.config.ConfigManager
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.util.Identifier
 

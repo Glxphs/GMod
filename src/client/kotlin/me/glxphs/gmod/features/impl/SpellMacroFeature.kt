@@ -1,13 +1,13 @@
 package me.glxphs.gmod.features.impl
 
 import me.glxphs.gmod.GModClient
-import me.glxphs.gmod.config.Config
-import me.glxphs.gmod.config.ConfigEntry
+import me.glxphs.gmod.config.ConfigValue
+import me.glxphs.gmod.config.annotations.ConfigKey
 import me.glxphs.gmod.config.KeyHandler.cast1stSpell
 import me.glxphs.gmod.config.KeyHandler.cast2ndSpell
 import me.glxphs.gmod.config.KeyHandler.cast3rdSpell
 import me.glxphs.gmod.config.KeyHandler.cast4thSpell
-import me.glxphs.gmod.config.RegisterConfig
+import me.glxphs.gmod.config.annotations.RegisterConfig
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.impl.hud.SpellClicksHudFeature
 import me.glxphs.gmod.utils.LoreUtils
@@ -18,20 +18,20 @@ import java.util.*
 
 @RegisterConfig("Spell Macro")
 object SpellMacroFeature : Feature("Spell Macro") {
-    @ConfigEntry(name = "Safe Cast (Using Spell Clicks HUD)")
-    var safeCast = Config(true)
+    @ConfigKey(name = "Safe Cast (Using Spell Clicks HUD)", order = 0)
+    var safeCast = ConfigValue(true)
 
-    @ConfigEntry(name = "1st Spell CPS")
-    var cps1 = Config(20.0)
+    @ConfigKey(name = "1st Spell CPS")
+    var cps1 = ConfigValue(20.0)
 
-    @ConfigEntry(name = "2nd Spell CPS")
-    var cps2 = Config(14.5)
+    @ConfigKey(name = "2nd Spell CPS")
+    var cps2 = ConfigValue(14.5)
 
-    @ConfigEntry(name = "3rd Spell CPS")
-    var cps3 = Config(20.0)
+    @ConfigKey(name = "3rd Spell CPS")
+    var cps3 = ConfigValue(20.0)
 
-    @ConfigEntry(name = "4th Spell CPS")
-    var cps4 = Config(14.5)
+    @ConfigKey(name = "4th Spell CPS")
+    var cps4 = ConfigValue(14.5)
 
     private val spells = listOf(
         Triple(SpellUnit.PRIMARY, SpellUnit.SECONDARY, SpellUnit.PRIMARY),
@@ -58,6 +58,7 @@ object SpellMacroFeature : Feature("Spell Macro") {
         super.onInitialize()
 
         ClientTickEvents.END_CLIENT_TICK.register { client ->
+            if (!enabled.value) return@register
             if (MinecraftClient.getInstance().player == null) return@register
             spellKeybinds.forEach { (key, spell) ->
                 if (key.isPressed && !pressed[key]!!) {
@@ -76,7 +77,7 @@ object SpellMacroFeature : Feature("Spell Macro") {
 
     private fun castSpell(spell: Triple<SpellUnit, SpellUnit, SpellUnit>) {
         if (queue.size != 0) {
-            GModClient.ingameLog("You are already casting a spell!")
+            GModClient.inGameLog("You are already casting a spell!")
             return
         }
         val archer = isArcher(MinecraftClient.getInstance().player!!)
@@ -90,7 +91,7 @@ object SpellMacroFeature : Feature("Spell Macro") {
                     queue.removeFirst()
                 }
             } else {
-                GModClient.ingameLog("Incompatible spell is currently being casted.")
+                GModClient.inGameLog("Incompatible spell is currently being casted.")
                 queue.clear()
                 return
             }

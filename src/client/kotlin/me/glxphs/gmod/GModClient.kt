@@ -2,6 +2,7 @@ package me.glxphs.gmod
 
 import me.glxphs.gmod.commands.CommandManager
 import me.glxphs.gmod.config.ConfigManager
+import me.glxphs.gmod.config.GeneralConfig
 import me.glxphs.gmod.config.KeyHandler
 import me.glxphs.gmod.features.FeatureManager
 import me.glxphs.gmod.features.MythicWeightsLoader
@@ -18,9 +19,9 @@ object GModClient : ClientModInitializer {
         MythicWeightsLoader.fetchWeights()
 
         FeatureManager.registerFeatures()
-        ConfigManager.loadConfig()
-        KeyHandler.registerKeybindings()
+        ConfigManager.registerConfig(GeneralConfig)
 
+        KeyHandler.registerKeybindings()
         HudRenderer.registerEvents()
 
         // Register client commands
@@ -28,13 +29,14 @@ object GModClient : ClientModInitializer {
             FeatureManager.registerCommands(dispatcher)
             CommandManager.registerCommands(dispatcher)
         }
+        ConfigManager.loadConfig()
     }
 
     fun log(message: String) {
         println("[GMod] $message")
     }
 
-    fun ingameLog(message: String) {
+    fun inGameLog(message: String) {
         MinecraftClient.getInstance().inGameHud?.chatHud?.addMessage(Text.literal("[GMod] $message").formatted(
             Formatting.GRAY))
     }

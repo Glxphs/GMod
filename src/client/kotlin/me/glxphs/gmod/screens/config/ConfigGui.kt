@@ -1,10 +1,11 @@
-package me.glxphs.gmod.config
+package me.glxphs.gmod.screens.config
 
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription
 import io.github.cottonmc.cotton.gui.widget.*
 import io.github.cottonmc.cotton.gui.widget.data.*
+import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.config.ConfigManager.config
-import me.glxphs.gmod.screens.HudPositionScreen
+import me.glxphs.gmod.config.annotations.ConfigKey
 import net.fabricmc.fabric.api.util.TriState
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.util.math.MatrixStack
@@ -51,7 +52,7 @@ class ConfigGui : LightweightGuiDescription() {
         var row = 0
 
         config.forEach { (section, entries) ->
-            if (entries.all { it.value.hidden }) return@forEach
+            if (entries.all { it.key.hidden }) return@forEach
 
             val sectionWidget = ConfigSectionWidget(section, entries)
             sectionsPanel.add(sectionWidget, 0, row++ * 12, 12*18, 12)
@@ -68,7 +69,7 @@ class ConfigGui : LightweightGuiDescription() {
         root.validate(this)
     }
 
-    inner class ConfigSectionWidget(val section: String, val entries: MutableMap<String, Config<*>>) : WLabel(Text.literal(section)) {
+    inner class ConfigSectionWidget(val section: String, val entries: MutableMap<ConfigKey, ConfigValue<*>>) : WLabel(Text.literal(section)) {
         init {
             setHorizontalAlignment(HorizontalAlignment.CENTER)
             setVerticalAlignment(VerticalAlignment.CENTER)
@@ -94,10 +95,10 @@ class ConfigGui : LightweightGuiDescription() {
                 .setVerticalAlignment(VerticalAlignment.CENTER)
             configPanel.add(label, 0, row++, 11, 1)
             entries.toList().sortedBy {
-                it.second.order
-            }.forEach { (name, entry) ->
-                if (entry.hidden) return@forEach
-                configPanel.add(ConfigEntryWidget(name, entry), 0, row, 11, 2)
+                it.first.order
+            }.forEach { (key, value) ->
+                if (key.hidden) return@forEach
+                configPanel.add(ConfigEntryWidget(key, value), 0, row, 11, 2)
                 row += 2
             }
             this@ConfigGui.rootPanel.validate(this@ConfigGui)
@@ -107,9 +108,9 @@ class ConfigGui : LightweightGuiDescription() {
         }
     }
 
-    class ConfigEntryWidget(name: String, entry: Config<*>) : WGridPanel() {
+    class ConfigEntryWidget(configKey: ConfigKey, entry: ConfigValue<*>) : WGridPanel() {
         init {
-            val label = WLabel(Text.literal(name))
+            val label = WLabel(Text.literal(configKey.name))
 //                .setHorizontalAlignment(HorizontalAlignment.CENTER)
                 .setVerticalAlignment(VerticalAlignment.CENTER)
             add(label, 0, 0, 12, 1)

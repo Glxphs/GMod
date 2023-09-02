@@ -4,9 +4,9 @@ import com.wynntils.core.components.Models
 import com.wynntils.models.gear.type.GearTier
 import com.wynntils.models.items.items.game.GearItem
 import com.wynntils.models.stats.StatCalculator
-import me.glxphs.gmod.config.Config
-import me.glxphs.gmod.config.ConfigEntry
-import me.glxphs.gmod.config.RegisterConfig
+import me.glxphs.gmod.config.ConfigValue
+import me.glxphs.gmod.config.annotations.ConfigKey
+import me.glxphs.gmod.config.annotations.RegisterConfig
 import me.glxphs.gmod.events.SlotRenderCallback
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.MythicWeightsLoader
@@ -20,17 +20,14 @@ import net.minecraft.util.Formatting
 
 @RegisterConfig(section = "Mythic Weighed Overall Tooltip")
 object MythicWeightTooltipFeature : Feature("Mythic Weighed Overall Tooltip") {
-    @ConfigEntry(name = "Enabled")
-    var enabled = Config(value = true, hidden = false, order = 0)
+    @ConfigKey(name = "Weighing Mode", description = "normal, war, lootrun, spell, arcanist, melee, thunder", order = 1)
+    var weighingMode = ConfigValue("normal")
 
-    @ConfigEntry(name = "Weighing Mode", description = "normal, war, lootrun, spell, arcanist, melee, thunder")
-    var weighingMode = Config("normal", hidden = false, order = 1)
+    @ConfigKey(name = "Item Weight Overlay", order = 2)
+    var itemWeightOverlay = ConfigValue(value = true)
 
-    @ConfigEntry(name = "Item Weight Overlay")
-    var itemWeightOverlay = Config(value = true, hidden = false, order = 2)
-
-    @ConfigEntry(name = "Overlay In Trade Market Only")
-    var tradeMarketOnly = Config(value = true, hidden = false, order = 3)
+    @ConfigKey(name = "Overlay In Trade Market Only", order = 3)
+    var tradeMarketOnly = ConfigValue(value = true)
 
     override fun onInitialize() {
         super.onInitialize()

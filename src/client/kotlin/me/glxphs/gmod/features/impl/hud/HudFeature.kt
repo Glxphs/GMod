@@ -1,15 +1,14 @@
 package me.glxphs.gmod.features.impl.hud
 
-import me.glxphs.gmod.config.Config
+import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.utils.McUtils
 import net.minecraft.text.Text
 
 abstract class HudFeature(name: String) : Feature(name) {
-    abstract var enabled: Config<Boolean>
-    abstract var hudSize: Config<Float>
-    abstract var x: Config<Float>
-    abstract var y: Config<Float>
+    abstract var hudSize: ConfigValue<Float>
+    abstract var x: ConfigValue<Float>
+    abstract var y: ConfigValue<Float>
 //    abstract var unscaledBoxWidth: Float
 
 //    abstract fun renderPreview(matrixStack: MatrixStack, delta: Float, windowWidth: Int, windowHeight: Int, scaledX: Float, scaledY: Float)

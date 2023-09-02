@@ -1,24 +1,21 @@
 package me.glxphs.gmod.features.impl.hud
 
-import me.glxphs.gmod.config.Config
-import me.glxphs.gmod.config.ConfigEntry
-import me.glxphs.gmod.config.RegisterConfig
+import me.glxphs.gmod.config.ConfigValue
+import me.glxphs.gmod.config.annotations.ConfigKey
+import me.glxphs.gmod.config.annotations.RegisterConfig
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
 @RegisterConfig("Gamble Reminder HUD")
 object GambleReminderHudFeature : HudFeature("Gamble Reminder HUD") {
-    @ConfigEntry("Enabled")
-    override var enabled: Config<Boolean> = Config(true, hidden = false, order = 0)
+    @ConfigKey("Hud Size", hidden = true)
+    override var hudSize: ConfigValue<Float> = ConfigValue(1.0f)
 
-    @ConfigEntry("Hud Size")
-    override var hudSize: Config<Float> = Config(1.0f, true)
+    @ConfigKey("X Position", hidden = true)
+    override var x: ConfigValue<Float> = ConfigValue(100.0f)
 
-    @ConfigEntry("X Position")
-    override var x: Config<Float> = Config(100.0f, true)
-
-    @ConfigEntry("Y Position")
-    override var y: Config<Float> = Config(300.0f, true)
+    @ConfigKey("Y Position", hidden = true)
+    override var y: ConfigValue<Float> = ConfigValue(300.0f)
 
     override fun getTextList(): List<Text> {
         return listOf(

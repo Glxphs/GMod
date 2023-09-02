@@ -4,9 +4,9 @@ import com.wynntils.core.components.Models
 import com.wynntils.models.gear.type.GearTier
 import com.wynntils.models.items.items.game.GearItem
 import com.wynntils.models.stats.StatCalculator
-import me.glxphs.gmod.config.Config
-import me.glxphs.gmod.config.ConfigEntry
-import me.glxphs.gmod.config.RegisterConfig
+import me.glxphs.gmod.config.ConfigValue
+import me.glxphs.gmod.config.annotations.ConfigKey
+import me.glxphs.gmod.config.annotations.RegisterConfig
 import me.glxphs.gmod.events.InventoryCallback
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.MythicWeightsLoader
@@ -19,14 +19,11 @@ import net.minecraft.util.Formatting
 
 @RegisterConfig("Gamble Reminder")
 object GambleReminderFeature : Feature("Gamble Reminder") {
-    @ConfigEntry("Enabled")
-    var enabled = Config(true, hidden = false, order = 0)
+    @ConfigKey("Bad Stat Reroll Reminder", order = 1)
+    var badStatRerollReminder = ConfigValue(true)
 
-    @ConfigEntry("Bad Stat Reroll Reminder")
-    var badStatRerollReminder = Config(true, hidden = false, order = 1)
-
-    @ConfigEntry("Lootrun Reward Reroll Reminder")
-    var lootrunRewardRerollReminder = Config(true, hidden = false, order = 2)
+    @ConfigKey("Lootrun Reward Reroll Reminder", order = 2)
+    var lootrunRewardRerollReminder = ConfigValue(true)
 
     var acceptItemStack: ItemStack? = null
     var rerollItemStack: ItemStack? = null

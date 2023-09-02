@@ -2,8 +2,8 @@ package me.glxphs.gmod.commands.impl
 
 import com.mojang.brigadier.CommandDispatcher
 import me.glxphs.gmod.commands.Command
-import me.glxphs.gmod.config.ConfigGui
-import me.glxphs.gmod.config.ConfigScreen
+import me.glxphs.gmod.screens.config.ConfigGui
+import me.glxphs.gmod.screens.config.ConfigScreen
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 import net.minecraft.client.MinecraftClient
