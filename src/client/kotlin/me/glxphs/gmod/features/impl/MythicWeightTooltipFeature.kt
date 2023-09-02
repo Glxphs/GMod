@@ -6,7 +6,7 @@ import com.wynntils.models.items.items.game.GearItem
 import com.wynntils.models.stats.StatCalculator
 import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.config.annotations.ConfigKey
-import me.glxphs.gmod.config.annotations.RegisterConfig
+import me.glxphs.gmod.config.annotations.ConfigCategory
 import me.glxphs.gmod.events.SlotRenderCallback
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.MythicWeightsLoader
@@ -18,15 +18,30 @@ import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
-@RegisterConfig(section = "Mythic Weighed Overall Tooltip")
+@ConfigCategory(
+    name = "Mythic Weighed Overall Tooltip",
+    description = "Shows the weighed overall of your mythic gear.",
+)
 object MythicWeightTooltipFeature : Feature("Mythic Weighed Overall Tooltip") {
-    @ConfigKey(name = "Weighing Mode", description = "normal, war, lootrun, spell, arcanist, melee, thunder", order = 1)
+    @ConfigKey(
+        name = "Weighing Mode",
+        description = "The mode to weigh your gear. 'normal' is the default. Others: 'war, lootrun, spell, arcanist, melee, thunder'.",
+        order = 1
+    )
     var weighingMode = ConfigValue("normal")
 
-    @ConfigKey(name = "Item Weight Overlay", order = 2)
+    @ConfigKey(
+        name = "Item Weight Overlay",
+        description = "Adds an overlay to your items showing their weighed overall.",
+        order = 2
+    )
     var itemWeightOverlay = ConfigValue(value = true)
 
-    @ConfigKey(name = "Overlay In Trade Market Only", order = 3)
+    @ConfigKey(
+        name = "Overlay In Trade Market Only",
+        description = "Only shows the item weight overlay in the trade market.",
+        order = 3
+    )
     var tradeMarketOnly = ConfigValue(value = true)
 
     override fun onInitialize() {
@@ -43,7 +58,7 @@ object MythicWeightTooltipFeature : Feature("Mythic Weighed Overall Tooltip") {
             if (!enabled.value) return@register
             if (!itemWeightOverlay.value) return@register
 
-            if (tradeMarketOnly.value && !screen.title.string.contains("Trade Market")) {
+            if (tradeMarketOnly.value && !screen.title.string.contains("Trade Market") && !screen.title.string.contains("Search Results")) {
                 return@register
             }
 

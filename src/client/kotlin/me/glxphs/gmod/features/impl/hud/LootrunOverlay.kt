@@ -5,14 +5,17 @@ import com.wynntils.models.lootrun.type.LootrunningState
 import com.wynntils.utils.type.CappedValue
 import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.config.annotations.ConfigKey
-import me.glxphs.gmod.config.annotations.RegisterConfig
+import me.glxphs.gmod.config.annotations.ConfigCategory
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
-@RegisterConfig("Lootrun HUD")
-object LootrunHudFeature : HudFeature("Lootrun HUD") {
-    @ConfigKey("Hud Size", hidden = true)
-    override var hudSize: ConfigValue<Float> = ConfigValue(1.0f)
+@ConfigCategory(
+    "Lootrun Overlay",
+    description = "Counts how many of your lootrun challenges are from red beacons.",
+)
+object LootrunOverlay : OverlayFeature("Lootrun Overlay") {
+    @ConfigKey("Scale", hidden = true)
+    override var scale: ConfigValue<Float> = ConfigValue(1.0f)
 
     @ConfigKey("X Position", hidden = true)
     override var x: ConfigValue<Float> = ConfigValue(100.0f)

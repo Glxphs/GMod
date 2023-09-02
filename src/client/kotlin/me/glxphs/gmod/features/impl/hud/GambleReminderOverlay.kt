@@ -2,14 +2,17 @@ package me.glxphs.gmod.features.impl.hud
 
 import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.config.annotations.ConfigKey
-import me.glxphs.gmod.config.annotations.RegisterConfig
+import me.glxphs.gmod.config.annotations.ConfigCategory
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
-@RegisterConfig("Gamble Reminder HUD")
-object GambleReminderHudFeature : HudFeature("Gamble Reminder HUD") {
-    @ConfigKey("Hud Size", hidden = true)
-    override var hudSize: ConfigValue<Float> = ConfigValue(1.0f)
+@ConfigCategory(
+    "Gamble Reminder Overlay",
+    description = "A reminder to gamble every day",
+)
+object GambleReminderOverlay : OverlayFeature("Gamble Reminder") {
+    @ConfigKey("Scale", hidden = true)
+    override var scale: ConfigValue<Float> = ConfigValue(1.0f)
 
     @ConfigKey("X Position", hidden = true)
     override var x: ConfigValue<Float> = ConfigValue(100.0f)

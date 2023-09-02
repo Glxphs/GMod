@@ -6,7 +6,7 @@ import com.wynntils.models.items.items.game.GearItem
 import com.wynntils.models.stats.StatCalculator
 import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.config.annotations.ConfigKey
-import me.glxphs.gmod.config.annotations.RegisterConfig
+import me.glxphs.gmod.config.annotations.ConfigCategory
 import me.glxphs.gmod.events.InventoryCallback
 import me.glxphs.gmod.features.Feature
 import me.glxphs.gmod.features.MythicWeightsLoader
@@ -17,12 +17,23 @@ import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
-@RegisterConfig("Gamble Reminder")
+@ConfigCategory(
+    "Gamble Reminder",
+    description = "A reminder to gamble every day",
+)
 object GambleReminderFeature : Feature("Gamble Reminder") {
-    @ConfigKey("Bad Stat Reroll Reminder", order = 1)
+    @ConfigKey(
+        "Bad Stat Reroll Reminder",
+        description = "Reminds you to reroll the item if one of the stats is bad.",
+        order = 1
+    )
     var badStatRerollReminder = ConfigValue(true)
 
-    @ConfigKey("Lootrun Reward Reroll Reminder", order = 2)
+    @ConfigKey(
+        "Lootrun Reward Reroll Reminder",
+        description = "Reminds you to reroll the lootrun reward if there are no/cheap mythics.",
+        order = 2
+    )
     var lootrunRewardRerollReminder = ConfigValue(true)
 
     var acceptItemStack: ItemStack? = null

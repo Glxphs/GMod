@@ -5,10 +5,10 @@ import me.glxphs.gmod.features.impl.GambleReminderFeature
 import me.glxphs.gmod.features.impl.MythicWeightTooltipFeature
 import me.glxphs.gmod.features.impl.SpellMacroFeature
 import me.glxphs.gmod.features.impl.UnidMythicPcTooltipFeature
-import me.glxphs.gmod.features.impl.hud.HudFeature
-import me.glxphs.gmod.features.impl.hud.LootrunHudFeature
-import me.glxphs.gmod.features.impl.hud.SpellClicksHudFeature
-import me.glxphs.gmod.features.impl.hud.GambleReminderHudFeature
+import me.glxphs.gmod.features.impl.hud.OverlayFeature
+import me.glxphs.gmod.features.impl.hud.LootrunOverlay
+import me.glxphs.gmod.features.impl.hud.SpellClicksOverlay
+import me.glxphs.gmod.features.impl.hud.GambleReminderOverlay
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 
 object FeatureManager {
@@ -20,13 +20,13 @@ object FeatureManager {
 
         GambleReminderFeature,
 
-        SpellClicksHudFeature,
-        LootrunHudFeature,
-        GambleReminderHudFeature
+        SpellClicksOverlay,
+        LootrunOverlay,
+        GambleReminderOverlay
     )
 
-    fun getHudFeatures(): List<HudFeature> {
-        return features.filterIsInstance<HudFeature>()
+    fun getHudFeatures(): List<OverlayFeature> {
+        return features.filterIsInstance<OverlayFeature>()
     }
 
     fun registerFeatures() {
@@ -45,7 +45,7 @@ object FeatureManager {
         return features.first { it.name == name }
     }
 
-    fun getHudFeature(name: String): HudFeature {
+    fun getHudFeature(name: String): OverlayFeature {
         return getHudFeatures().first { it.name == name }
     }
 }

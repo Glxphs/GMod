@@ -7,31 +7,41 @@ import me.glxphs.gmod.config.KeyHandler.cast1stSpell
 import me.glxphs.gmod.config.KeyHandler.cast2ndSpell
 import me.glxphs.gmod.config.KeyHandler.cast3rdSpell
 import me.glxphs.gmod.config.KeyHandler.cast4thSpell
-import me.glxphs.gmod.config.annotations.RegisterConfig
+import me.glxphs.gmod.config.annotations.ConfigCategory
 import me.glxphs.gmod.features.Feature
-import me.glxphs.gmod.features.impl.hud.SpellClicksHudFeature
+import me.glxphs.gmod.features.impl.hud.SpellClicksOverlay
 import me.glxphs.gmod.utils.LoreUtils
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.network.ClientPlayerEntity
 import java.util.*
 
-@RegisterConfig("Spell Macro")
+@ConfigCategory(
+    "Spell Macro",
+    description = "Allows you to cast spells with a single keybind.",
+)
 object SpellMacroFeature : Feature("Spell Macro") {
-    @ConfigKey(name = "Safe Cast (Using Spell Clicks HUD)", order = 0)
+    @ConfigKey(
+        name = "Safe Cast",
+        description = "If enabled, the macro will only click the clicks needed.",
+        order = 1
+    )
     var safeCast = ConfigValue(true)
 
-    @ConfigKey(name = "1st Spell CPS")
-    var cps1 = ConfigValue(20.0)
+    @ConfigKey(
+        name = "1st Spell CPS",
+        description = "The CPS for the first spell. Recommended: 12.0, since Wynncraft now limits the cps!",
+    )
+    var cps1 = ConfigValue(12.0)
 
     @ConfigKey(name = "2nd Spell CPS")
-    var cps2 = ConfigValue(14.5)
+    var cps2 = ConfigValue(12.0)
 
     @ConfigKey(name = "3rd Spell CPS")
-    var cps3 = ConfigValue(20.0)
+    var cps3 = ConfigValue(12.0)
 
     @ConfigKey(name = "4th Spell CPS")
-    var cps4 = ConfigValue(14.5)
+    var cps4 = ConfigValue(12.0)
 
     private val spells = listOf(
         Triple(SpellUnit.PRIMARY, SpellUnit.SECONDARY, SpellUnit.PRIMARY),
@@ -83,7 +93,7 @@ object SpellMacroFeature : Feature("Spell Macro") {
         val archer = isArcher(MinecraftClient.getInstance().player!!)
         queue.addAll(listOf(spell.first.getClick(archer), spell.second.getClick(archer), spell.third.getClick(archer)))
 
-        val hudClicks = SpellClicksHudFeature.clicks
+        val hudClicks = SpellClicksOverlay.clicks
 
         if (safeCast.value && hudClicks.size in 1..2) {
             if (queue.subList(0, hudClicks.size) == hudClicks) {

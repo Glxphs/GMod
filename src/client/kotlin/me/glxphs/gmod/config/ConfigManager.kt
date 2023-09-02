@@ -3,24 +3,22 @@ package me.glxphs.gmod.config
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import me.glxphs.gmod.config.annotations.ConfigKey
-import me.glxphs.gmod.config.annotations.RegisterConfig
-import me.glxphs.gmod.features.Feature
+import me.glxphs.gmod.config.annotations.ConfigCategory
 import net.fabricmc.loader.api.FabricLoader
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
 object ConfigManager {
     private val configFile = FabricLoader.getInstance().configDir.resolve("gmodConfig.json").toFile()
-    var config = mutableMapOf<String, MutableMap<ConfigKey, ConfigValue<*>>>()
+    var config = mutableMapOf<ConfigCategory, MutableMap<ConfigKey, ConfigValue<*>>>()
 
     private val gson = GsonBuilder().setPrettyPrinting().create()
 
     fun registerConfig(obj: Any) {
-        val registerConfig = obj::class.findAnnotation<RegisterConfig>() ?: return
-        val section = registerConfig.section
+        val configCategory = obj::class.findAnnotation<ConfigCategory>() ?: return
 
-        if (!config.containsKey(section)) {
-            config[section] = mutableMapOf()
+        if (!config.containsKey(configCategory)) {
+            config[configCategory] = mutableMapOf()
         }
 
         val fields = obj::class.memberProperties
@@ -35,7 +33,7 @@ object ConfigManager {
 
             val value = field.getter.call(obj) as ConfigValue<*>
 
-            config[section]!![configKey] = value
+            config[configCategory]!![configKey] = value
         }
     }
 
@@ -44,9 +42,11 @@ object ConfigManager {
             configFile.createNewFile()
         }
 
-        // MutableMap<String, MutableMap<ConfigKey, ConfigValue<*>>> to
+        // MutableMap<ConfigCategory, MutableMap<ConfigKey, ConfigValue<*>>> to
         // MutableMap<String, MutableMap<String, *>>
-        val stringKeyConfig = config.mapValues { (_, entries) ->
+        val stringKeyConfig = config.mapKeys { (key, _) ->
+            key.name
+        }.mapValues { (_, entries) ->
             entries.mapKeys { (key, _) ->
                 key.name
             }.mapValues { (_, value) ->
@@ -71,9 +71,9 @@ object ConfigManager {
                 }
 
             config.forEach { (section, entries) ->
-                entries.forEach entriesForEach@ { (key, value) ->
+                entries.forEach entriesForEach@{ (key, value) ->
                     val stringKey = key.name
-                    val loadedValue = stringKeyConfig[section]?.get(stringKey) ?: return@entriesForEach
+                    val loadedValue = stringKeyConfig[section.name]?.get(stringKey) ?: return@entriesForEach
                     value.set(loadedValue)
                 }
             }

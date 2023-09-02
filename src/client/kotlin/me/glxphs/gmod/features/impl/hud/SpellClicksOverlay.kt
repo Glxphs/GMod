@@ -4,7 +4,7 @@ import com.wynntils.core.components.Models
 import com.wynntils.models.items.items.game.GearItem
 import me.glxphs.gmod.config.ConfigValue
 import me.glxphs.gmod.config.annotations.ConfigKey
-import me.glxphs.gmod.config.annotations.RegisterConfig
+import me.glxphs.gmod.config.annotations.ConfigCategory
 import me.glxphs.gmod.events.PlayerSwingHandCallback
 import me.glxphs.gmod.features.impl.SpellMacroFeature
 import me.glxphs.gmod.utils.ClickCounter
@@ -19,13 +19,16 @@ import net.minecraft.util.Formatting
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
 
-@RegisterConfig("Spell Clicks HUD")
-object SpellClicksHudFeature : HudFeature("Spell Clicks HUD") {
+@ConfigCategory(
+    "Spell Clicks Overlay",
+    description = "Shows the clicks you have done for your spells.",
+)
+object SpellClicksOverlay : OverlayFeature("Spell Clicks Overlay") {
     val clicks = mutableListOf<SpellMacroFeature.ClickType>()
     private var clearCountdown = 50
 
-    @ConfigKey("Hud Size")
-    override var hudSize = ConfigValue(3.0f)
+    @ConfigKey("Scale")
+    override var scale = ConfigValue(3.0f)
 
     @ConfigKey("X Position", hidden = true)
     override var x = ConfigValue(100.0f)

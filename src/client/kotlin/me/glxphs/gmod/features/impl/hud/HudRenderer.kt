@@ -1,16 +1,13 @@
 package me.glxphs.gmod.features.impl.hud
 
 import com.mojang.blaze3d.systems.RenderSystem
-import com.wynntils.core.consumers.overlays.RenderState
 import me.glxphs.gmod.config.GeneralConfig
 import me.glxphs.gmod.features.FeatureManager
 import me.glxphs.gmod.screens.config.HudPositionScreen
 import me.glxphs.gmod.utils.McUtils
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
-import net.minecraft.client.font.FontStorage
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.Text
-import net.minecraft.util.Formatting
 
 object HudRenderer {
     fun registerEvents() {
@@ -30,7 +27,7 @@ object HudRenderer {
         }
     }
 
-    private fun renderHudFeature(matrixStack: MatrixStack, hud: HudFeature, preview: Boolean) {
+    private fun renderHudFeature(matrixStack: MatrixStack, hud: OverlayFeature, preview: Boolean) {
         val mc = McUtils.mc
         
         val scaleFactor = mc.window.scaleFactor.toFloat()
@@ -43,23 +40,23 @@ object HudRenderer {
         val textList = if (preview) hud.getPreviewTextList() else hud.getTextList()
 
         textList.forEachIndexed { index, text ->
-            val textWidth = mc.textRenderer.getWidth(text) * hud.hudSize.get()
+            val textWidth = mc.textRenderer.getWidth(text) * hud.scale.get()
             val textX = getAlignedX(width, scaledX, boxWidth, textWidth)
 
             matrixStack.push()
             matrixStack.translate(
                 textX,
-                scaledY + index * 10f * hud.hudSize.get(),
+                scaledY + index * 10f * hud.scale.get(),
                 0.0f
             )
-            matrixStack.scale(hud.hudSize.get(), hud.hudSize.get(), 1.0f)
+            matrixStack.scale(hud.scale.get(), hud.scale.get(), 1.0f)
             if (GeneralConfig.outlinedText.value) {
                 drawWithOutline(
                     matrixStack,
                     text,
                     0f,
                     0f,
-                    hud.hudSize.get()
+                    hud.scale.get()
                 )
             } else {
                 mc.textRenderer.drawWithShadow(
