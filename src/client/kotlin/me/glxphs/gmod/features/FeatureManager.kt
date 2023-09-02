@@ -8,7 +8,7 @@ import me.glxphs.gmod.features.impl.UnidMythicPcTooltipFeature
 import me.glxphs.gmod.features.impl.hud.HudFeature
 import me.glxphs.gmod.features.impl.hud.LootrunHudFeature
 import me.glxphs.gmod.features.impl.hud.SpellClicksHudFeature
-import me.glxphs.gmod.features.impl.hud.TestHudFeature
+import me.glxphs.gmod.features.impl.hud.GambleReminderHudFeature
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 
 object FeatureManager {
@@ -22,7 +22,7 @@ object FeatureManager {
 
         SpellClicksHudFeature,
         LootrunHudFeature,
-        TestHudFeature
+        GambleReminderHudFeature
     )
 
     fun getHudFeatures(): List<HudFeature> {

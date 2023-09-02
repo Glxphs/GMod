@@ -6,8 +6,8 @@ import me.glxphs.gmod.config.RegisterConfig
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
-@RegisterConfig("Lootrun HUD")
-object TestHudFeature : HudFeature("Lootrun HUD") {
+@RegisterConfig("Gamble Reminder HUD")
+object GambleReminderHudFeature : HudFeature("Gamble Reminder HUD") {
     @ConfigEntry("Enabled")
     override var enabled: Config<Boolean> = Config(true, hidden = false, order = 0)
 
